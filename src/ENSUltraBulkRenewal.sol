@@ -3,8 +3,9 @@ pragma solidity ~0.8.17;
 
 import "./ETHRegistrarController.sol";
 import "./IUltraBulkRenewal.sol";
+import "@solmate/auth/owned";
 
-contract UltraBulkRenewal is IUltraBulkRenewal {
+contract UltraBulkRenewal is IUltraBulkRenewal, Owned {
     ETHRegistrarController controller;
 
     constructor(ETHRegistrarController _controller) {
