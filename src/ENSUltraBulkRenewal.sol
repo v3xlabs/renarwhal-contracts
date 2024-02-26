@@ -3,12 +3,12 @@ pragma solidity ~0.8.17;
 
 import "./ETHRegistrarController.sol";
 import "./IUltraBulkRenewal.sol";
-import "@solmate/auth/owned";
+import "solmate/auth/Owned.sol";
 
 contract UltraBulkRenewal is IUltraBulkRenewal, Owned {
     ETHRegistrarController controller;
 
-    constructor(ETHRegistrarController _controller) {
+    constructor(ETHRegistrarController _controller) Owned(msg.sender) {
         controller = _controller;
     }
 
@@ -27,7 +27,7 @@ contract UltraBulkRenewal is IUltraBulkRenewal, Owned {
         }
     }
 
-    function refund() external payable {
+    function refund() external payable onlyOwner {
         payable(msg.sender).transfer(address(this).balance);
     }
 }
